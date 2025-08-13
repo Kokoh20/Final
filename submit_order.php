@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 $name = $_POST['customerName'];
 $contact = $_POST['contactNumber'];
 $address = $_POST['deliveryAddress'];
-$items = $_POST['items'];
+$items = isset($_POST['items']) ? $_POST['items'] : [];
 
 $total = 0;
 $menu = [
@@ -30,11 +30,16 @@ foreach ($items as $item => $value) {
 }
 
 
+if (empty($items)) {
+  echo "<h2>No items selected</h2><p>Please go back and choose at least one item.</p>";
+  $conn->close();
+  exit;
+}
+
 $stmt = $conn->prepare("INSERT INTO orders (customer_name, contact_number, delivery_address, total_price) VALUES (?, ?, ?, ?)");
 $stmt->bind_param("sssd", $name, $contact, $address, $total);
 $stmt->execute();
 $order_id = $stmt->insert_id;
-
 
 foreach ($items as $item => $value) {
   $quantity = 1;
