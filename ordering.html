@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Online - Maui'z Cafe</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Order Your Favorites</h1>
+
+    <form method="POST" action="submit_order.php" id="orderForm">
+      <div class="mb-3">
+        <label class="form-label">Select Items</label>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="items[Brewed Coffee]" value="1" id="coffee">
+          <label class="form-check-label" for="coffee">Brewed Coffee - ₱80</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="items[Caramel Macchiato]" value="1" id="macchiato">
+          <label class="form-check-label" for="macchiato">Caramel Macchiato - ₱120</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="items[Chocolate Cake]" value="1" id="cake">
+          <label class="form-check-label" for="cake">Chocolate Cake Slice - ₱90</label>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="customerName" class="form-label">Your Name</label>
+        <input type="text" class="form-control" name="customerName" id="customerName" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="contactNumber" class="form-label">Contact Number</label>
+        <input type="tel" class="form-control" name="contactNumber" id="contactNumber" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="deliveryAddress" class="form-label">Delivery Address</label>
+        <textarea class="form-control" name="deliveryAddress" id="deliveryAddress" rows="3" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit Order</button>
+    </form>
+  </div>
+
+  <footer class="text-center mt-5">
+    <p>&copy; 2025 Maui'z Cafe</p>
+  </footer>
+</body>
+</html>
