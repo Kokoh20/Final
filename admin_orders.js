@@ -7,7 +7,7 @@
   function render(list){
     if(!list.length){ container.innerHTML = '<div class="alert alert-info">No orders yet.</div>'; return; }
     container.innerHTML = list.map(o=>{
-      const items = o.items.map(i=> `${i.qty}× ${i.name}`).join(', ');
+      const items = (o.items||[]).map(i=> `${i.quantity||i.qty}× ${i.product_name||i.name}`).join(', ');
       return `
         <div class="card">
           <div class="card-body d-flex gap-3 align-items-start">
@@ -17,8 +17,8 @@
               <div class="small">${items}</div>
             </div>
             <div class="text-end">
-              <div class="fw-bold">₱ ${money(o.totals.payable)}</div>
-              <div class="small text-muted">${o.createdAt}</div>
+              <div class="fw-bold">₱ ${money((o.totals && o.totals.payable) || o.total)}</div>
+              <div class="small text-muted">${o.created_at || o.createdAt}</div>
             </div>
           </div>
         </div>`;

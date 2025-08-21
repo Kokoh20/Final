@@ -111,7 +111,7 @@
       .then(r=> r.json())
       .then(res =>{
         if(!res || !res.ok){ throw new Error(res && res.error ? res.error : 'Unknown error'); }
-        alert('Order placed! ID: ' + res.order.id);
+        alert('Order placed! Code: ' + (res.order.code || res.order.id));
         localStorage.removeItem(CART_KEY);
         window.location.href = 'store.html';
       })
