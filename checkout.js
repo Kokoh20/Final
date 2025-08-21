@@ -13,7 +13,10 @@
     cartTotal: document.getElementById('cartTotal'),
     couponInput: document.getElementById('couponInput'),
     applyCoupon: document.getElementById('applyCoupon'),
-    placeOrder: document.getElementById('placeOrder')
+    placeOrder: document.getElementById('placeOrder'),
+    custName: document.getElementById('custName'),
+    custPhone: document.getElementById('custPhone'),
+    custAddr: document.getElementById('custAddr')
   };
 
   let couponValue = 0;
@@ -88,9 +91,31 @@
   });
 
   els.placeOrder.addEventListener('click', ()=>{
-    alert('Thank you! This demo confirms the order locally. Integrate backend to process payments and delivery.');
-    localStorage.removeItem(CART_KEY);
-    window.location.href = 'store.html';
+    const cart = loadCart();
+    if(cart.length === 0){ alert('Your cart is empty.'); return; }
+    const name = (els.custName.value||'').trim();
+    const phone = (els.custPhone.value||'').trim();
+    if(!name || !phone){ alert('Please enter your name and phone.'); return; }
+
+    const payload = {
+      customer: { name, phone, address: (els.custAddr.value||'').trim(), type: document.querySelector('input[name="otype"]:checked') ? 'selected' : 'pickup' },
+      items: cart,
+      totals: {
+        subtotal: parseFloat(els.subtotal.textContent || '0'),
+        discount: parseFloat(els.discount.textContent || '0'),
+        payable: parseFloat(els.payable.textContent || '0')
+      }
+    };
+
+    fetch('api/orders.php', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(payload) })
+      .then(r=> r.json())
+      .then(res =>{
+        if(!res || !res.ok){ throw new Error(res && res.error ? res.error : 'Unknown error'); }
+        alert('Order placed! ID: ' + res.order.id);
+        localStorage.removeItem(CART_KEY);
+        window.location.href = 'store.html';
+      })
+      .catch(err => alert('Failed to place order: ' + err.message));
   });
 
   render();

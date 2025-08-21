@@ -1,6 +1,6 @@
 /* Simple in-page store with categories, extras and sticky cart */
 (function(){
-  const products = [
+  let products = [
     { id: 'beef-bulgogi', name: 'Beef Bulgogi', price: 99, category: 'rice-bowl', image: 'assets/images/coffee7.jpg' },
     { id: 'chicken-teriyaki', name: 'Chicken Teriyaki', price: 99, category: 'rice-bowl', image: 'assets/images/dessert3.jpg' },
     { id: 'pork-samyeoupsal', name: 'Pork Samyeoupsal', price: 88, category: 'rice-bowl', image: 'assets/images/drink1.jpg' },
@@ -180,8 +180,11 @@
     overlay.classList.add('d-none');
   });
 
-  // Initial
-  renderProducts('all','');
-  cartTotals();
+  // Initial: try to fetch from backend, fallback to static list
+  fetch('api/products.php')
+    .then(r => r.ok ? r.json() : Promise.reject(new Error('failed')))
+    .then(data => { if(data && Array.isArray(data.products)) { products = data.products; } })
+    .catch(() => {})
+    .finally(() => { renderProducts('all',''); cartTotals(); });
 })();
 
