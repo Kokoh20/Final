@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mauiz Cafe - Store</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/logo1-removebg-preview.png">
+    <link rel="stylesheet" href="shop.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  </head>
+  <body>
+    <header class="store-header">
+      <div class="store-top container">
+        <div class="brand">
+          <img src="assets/images/mauiz_cafe-removebg-preview.png" alt="Logo"/>
+          <div class="brand-text">
+            <h1>Mauiz Cafe To Go</h1>
+            <p>Gen. Hughes St., Iloilo City, Philippines</p>
+          </div>
+        </div>
+        <div class="meta">
+          <div class="hours"><i class="fa-regular fa-clock"></i> 9:00am - 8:00pm</div>
+          <div class="social">
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="canopy"></div>
+      <div class="canopy canopy-alt"></div>
+    </header>
+
+    <main class="store container">
+      <div class="search-row">
+        <div class="input-group input-group-lg">
+          <input id="searchInput" type="text" class="form-control" placeholder="Search category here...">
+          <button class="btn btn-primary" id="searchBtn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="view-toggles">
+          <button class="btn btn-outline-primary active" id="categoryViewBtn">Category View</button>
+          <button class="btn btn-outline-primary" id="productViewBtn">Product View</button>
+        </div>
+      </div>
+
+      <section id="categoryView" class="category-view">
+        <h2 class="section-title">Categories</h2>
+        <div class="categories-grid">
+          <article class="category-card" data-category="rice-bowl">
+            <div class="icon"><i class="fa-solid fa-bowl-food"></i></div>
+            <h3>Rice Bowl</h3>
+            <p class="muted"><span class="badge bg-light text-dark">6 products</span></p>
+          </article>
+        </div>
+      </section>
+
+      <section id="productView" class="product-view d-none">
+        <h2 class="section-title">Products</h2>
+        <div class="filter-bar">
+          <div class="chip active" data-filter="all">All</div>
+          <div class="chip" data-filter="rice-bowl">Rice Bowl</div>
+        </div>
+        <div id="productsGrid" class="products-grid"></div>
+        <div class="text-center mt-3"><small class="text-muted">Products are loaded locally. For backend demo, use <code>api/products.php</code>.</small></div>
+      </section>
+    </main>
+
+    <div id="cartBar" class="cart-bar">
+      <div class="items"><i class="fa-solid fa-cart-shopping"></i> <span id="cartCount">0</span> items</div>
+      <a href="checkout.html" class="checkout">CHECKOUT</a>
+      <div class="total">₱ <span id="cartTotal">0.00</span></div>
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay d-none" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="modalTitle">Select Quantity (pcs)</h3>
+          <button class="icon-btn" id="modalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="qty-row">
+            <button class="qty-btn" id="qtyMinus">-</button>
+            <span id="qtyValue">1</span>
+            <button class="qty-btn" id="qtyPlus">+</button>
+          </div>
+          <div class="extras">
+            <div class="extras-title">Choice of Extras <span class="optional">Optional</span></div>
+            <div id="extrasList" class="extras-list"></div>
+          </div>
+          <div class="desc">
+            <label for="itemNotes" class="form-label">Description</label>
+            <textarea id="itemNotes" class="form-control" rows="2" placeholder="e.g., with Rice, Lettuce and Kimchi"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-light" id="modalCancel">Cancel</button>
+          <button class="btn btn-primary" id="modalConfirm">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="shop.js"></script>
+  </body>
+</html>
+
